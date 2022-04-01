@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/includes/layout :: layout(~{::section},~{::link}, ~{::script})}" >
+<head>
+  <link th:href="@{/assets/css/user.css}" href="/assets/css/user.css" rel="stylesheet" type="text/css">
+  <script></script>
+</head>
+<body>
+<section>
+  <div id="content">
+    <div id="user">
+      <form id="join-form" name="joinForm" method="post" th:action th:object="${user}" action="/user/update" >
+        <div>
+          <label class="block-label" for="name" th:text="#{label.user.name}">이름</label>
+          <input type="text" id="name" name="name" th:field="*{name}" th:errorclass="field-error" />
+          <div class="field-error" th:errors="*{name}">
+            이름 오류
+          </div>
+        </div>
+        <div>
+          <label class="block-label" for="email" th:text="#{label.user.email}">이메일</label>
+          <h4 name="email" id="email" th:text="*{email}">Email</h4>
+        </div>
+        <div>
+          <label class="block-label" for="password" th:text="#{label.user.password}">패스워드</label>
+          <input type="password" id="password" th:field="*{password}" th:value="*{password}" th:errorclass="field-error" />
+          <div class="field-error" th:errors="*{password}">
+            패스워드 오류
+          </div>
+        </div>
+        <!-- radio button -->
+        <fieldset>
+          <legend th:text="#{label.user.gender}">성별</legend>
+          <div th:each="gender : ${genders}">
+            <input type="radio" th:field="*{gender}" th:value="${gender.key}" >
+            <label th:for="${#ids.prev('gender')}" th:text="${gender.value}">남</label>
+          </div>
+          <div class="field-error" th:errors="*{gender}">
+            성별 오류
+          </div>
+        </fieldset>
+        <input type="submit" value="수정하기">
+      </form>
+    </div>
+  </div>
+</section>
+</body>
+</html>

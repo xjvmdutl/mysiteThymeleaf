@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/includes/layout :: layout(~{::section},~{::link}, ~{::script})}" >
+<head>
+  <link th:href="@{/assets/css/user.css}" href="/assets/css/user.css" rel="stylesheet" type="text/css">
+  <script th:inline="javascript" th:src="@{/assets/js/jquery/jquery-1.9.0.js}" href="/assets/js/jquery/jquery-1.9.0.js" type="text/javascript" ></script>
+  <script th:inline="javascript">
+  $(function(){
+		$("#email").change(function(){
+			$("#btn-check-email").show();
+			$("#img-checked").hide();
+		});
+
+		$("#btn-check-email").click(function(){
+			var email=$("#email").val();
+			if(email==""){
+				return;
+			}
+			//AJAX 통신
+			$.ajax({
+				url:"/api/user/checkemail?email="+email,
+				type:"GET",
+				dataType:"JSON",
+				data:"",
+				success:function(response){
+					if(response.result =="fail"){
+						console.error(response.message);
+						return
+					}
+					if(response.data==true){
+						alert("이미 존재하는 메일입니다");
+						$("#email").val("");
+						$("#email").focus();
+						return;
+					}
+					$("#btn-check-email").hide();
+					$("#img-checked").show();
+				},
+				error:function(xhr,error){
+					console.err("error"+error);
+				}
+
+			});
+		});
+	});
+  </script>
+</head>
+<body>
+<section>
+  <div id="content">
+    <div id="user">
+      <form id="join-form" name="joinForm" method="post" action="$/user/join" th:action th:object="${user}">
+        <div>
+          <label class="block-label" for="name" th:text="#{label.user.name}">이름</label>
+          <input type="text" id="name" name="name" th:field="*{name}" th:errorclass="field-error" />
+          <div class="field-error" th:errors="*{name}">
+            이름 오류
+          </div>
+        </div>
+        <div>
+          <label class="block-label" for="email" th:text="#{label.user.email}">이메일</label>
+          <input type="email" id="email" name="email"  th:field="*{email}" th:errorclass="field-error"/>
+          <div class="field-error" th:errors="*{email}">
+            이메일 오류
+          </div>
+          <input id="btn-check-email" type="button" th:value="#{button.sameCheck}" value="중복 체크">
+          <img id="img-checked" style='width:20px; display:none' th:src="@{/assets/images/check.png}" src='$/assets/images/check.png' />
+        </div>
+        <div>
+          <label class="block-label" for="password" th:text="#{label.user.password}">패스워드</label>
+          <input type="password" name="password" id="password" th:field="*{password}" th:errorclass="field-error" />
+          <div class="field-error" th:errors="*{password}">
+            패스워드 오류
+          </div>
+        </div>
+        <!-- radio button -->
+        <fieldset>
+          <legend th:text="#{label.user.gender}">성별</legend>
+          <div th:each="gender : ${genders}">
+            <input type="radio" th:field="*{gender}" th:value="${gender.key}" >
+            <label th:for="${#ids.prev('gender')}" th:text="${gender.value}">남</label>
+          </div>
+          <div class="field-error" th:errors="*{gender}">
+            성별 오류
+          </div>
+        </fieldset>
+        <!-- check box -->
+        <fieldset>
+          <legend th:text="#{legend.user.agreeProv}">약관동의</legend>
+          <input id="agree-prov" type="checkbox" th:field="*{agreeProv}" >
+          <label for="agree-prov" th:text="#{label.user.agreeProv}">서비스 약관에 동의합니다.</label>
+          <div class="field-error" th:errors="*{agreeProv}">
+            약관의 동의 오류
+          </div>
+        </fieldset>
+        <input type="submit" th:value="#{button.join}">
+      </form>
+    </div>
+  </div>
+</section>
+</body>
+</html>

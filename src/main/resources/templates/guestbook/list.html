@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/includes/layout :: layout(~{::section},~{::link},~{::script})}" >
+<head>
+  <link th:href="@{/assets/css/guestbook.css}" href="/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+  <script th:inline="javascript"></script>
+</head>
+<body>
+<section>
+  <div id="content">
+    <div id="guestbook">
+      <form th:action th:object="${guestbook}" action="/guestbook" method="post">
+        <table>
+          <tr>
+            <td th:text="#{guestbook.table.name}">이름</td><td><input type="text"  th:field="*{name}"></td>
+            <td th:text="#{guestbook.table.password}">비밀번호</td><td><input type="password"  th:field="*{password}"></td>
+          </tr>
+          <tr>
+            <td colspan=4><textarea th:field="*{content}"></textarea></td>
+          </tr>
+          <tr>
+            <td colspan=4 align=right><input type="submit" th:value="#{button.summit}"></td>
+          </tr>
+        </table>
+      </form>
+      <ul>
+        <li>
+          <div th:each="guestbook, guestbookStat : ${list}">
+            <table>
+              <tr>
+                <td th:text="${guestbookStat.count }">1</td>
+                <td th:text="${guestbook.name }">하이</td>
+                <td th:text="${guestbook.updatedAt }">2020-01-02</td>
+                <td><a href="/guestbook/delete" th:href="@{/guestbook/deleteform(no=${guestbook.no})}" th:text="#{button.delete}">삭제</a></td>
+              </tr>
+              <tr>
+                <td colspan=4 th:text=" ${guestbook.content }">
+                  안녕하세요
+                </td>
+              </tr>
+            </table>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+</body>
+</html>

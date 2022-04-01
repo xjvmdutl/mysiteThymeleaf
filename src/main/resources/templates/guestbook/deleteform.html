@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/includes/layout :: layout(~{::section},~{::link},~{::script})}" >
+<head>
+  <link th:href="@{/assets/css/guestbook.css}" href="/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+  <script th:inline="javascript"></script>
+</head>
+<body>
+<section>
+  <div id="content">
+    <div id="guestbook" class="delete-form">
+      <form method="post" th:action th:object="${guestbook}" action="$/guestbook">
+        <input type='hidden' name="no" value="${param.no}" th:value="${no}">
+        <label th:text="#{label.guestbook.password}">비밀번호</label>
+        <input type="password" th:field="*{password}">
+        <input type="submit" th:value="#{button.summit}" >
+      </form>
+      <a th:href="@{/guestbook}" href="/guestbook?a=list" th:text="#{link.guestbook.list}">방명록 리스트</a>
+    </div>
+  </div>
+</section>
+</body>
+</html>

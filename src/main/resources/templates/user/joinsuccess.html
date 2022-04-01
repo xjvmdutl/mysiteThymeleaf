@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/includes/layout :: layout(~{::section},~{::link},~{::script})}" >
+<head>
+  <link th:href="@{/assets/css/user.css}" href="/assets/css/user.css" rel="stylesheet" type="text/css">
+  <script th:inline="javascript"></script>
+</head>
+<body>
+<section>
+  <div id="content">
+    <div id="user">
+      <p class="jr-success" th:utext="#{user.joinsuccess.text}">회원가입을 축하합니다. <br> <br> </p>
+      <p ><a href="$/user/login" th:href="@{/user/loginform}" th:text="#{user.joinsuccess.login}">로그인하기</a></p>
+    </div>
+  </div>
+</section>
+</body>
+</html>

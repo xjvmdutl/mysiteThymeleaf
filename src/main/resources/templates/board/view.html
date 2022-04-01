@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/includes/layout :: layout(~{::section},~{::link},~{::script})}" >
+<head>
+  <link th:href="@{/assets/css/board.css}" href="/assets/css/board.css" rel="stylesheet" type="text/css">
+  <script th:inline="javascript"></script>
+</head>
+<body>
+<section>
+  <div id="container">
+    <div id="content">
+      <div id="board" class="board-form">
+        <table class="tbl-ex">
+          <tr>
+            <th colspan="2">글보기</th>
+          </tr>
+          <tr>
+            <td class="label">제목</td>
+            <td th:value="${board.title}">title</td>
+          </tr>
+          <tr>
+            <td class="label">내용</td>
+            <td>
+              <div class="view-content" th:value="${board.contents}">contents</div>
+            </td>
+          </tr>
+        </table>
+        <div class="bottom">
+          <a th:if="${session.authUser != null}" th:href="@{/board/request/{no}(no=${board.no})}" href="/board/request/${vo.no}">답글달기</a>
+          <a href="/board" th:href="@{/board}">글목록</a>
+          <a th:if="${session.authUser.no == board.user.no}" href="/board/modify/" th:href="@{/board/modify/{no}(no=${board.no})}">글수정</a>
+        </div>
+        <form method="post" action="/board/upload/1"
+              th:action="@{/board/upload/{no}(no=${board.no})}"
+              enctype="multipart/form-data" >
+          <label>파일1:</label>
+          <input type="file" name="attachFile">
+          <br><br>
+          <input type="submit" value="upload">
+        </form>
+      </div>
+      <div th:each="picture, pictureStat  : ${pictures}" class="result-images">
+        <h1 th:text="${pictureStat.count }">index</h1>
+        <img src="/" th:src="|/board/images/${picture.getStoreFileName()}|" style="width:300px"><br>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

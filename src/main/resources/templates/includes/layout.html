@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html th:fragment="layout (section, link, script)" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>MySite</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <th:block th:replace="${link}" />
+  <th:block th:replace="${script}" />
+</head>
+<body>
+<div id="container">
+  <header th:replace="/includes/header :: header" />
+  <section th:replace="${section}">
+  </section>
+  <nav th:replace="/includes/navigation :: navigation" />
+  <footer th:replace="/includes/footer :: footer" />
+</div>
+</body>
+</html>

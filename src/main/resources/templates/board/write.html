@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/includes/layout :: layout(~{::section},~{::link},~{::script})}" >
+<head>
+  <link th:href="@{/assets/css/board.css}" href="/assets/css/board.css" rel="stylesheet" type="text/css">
+  <script th:inline="javascript"></script>
+</head>
+
+<body>
+<section>
+<div id="container">
+  <div id="content">
+    <div id="board">
+      <form class="board-form" th:action th:object="${board}" method="post" action="/board/write">
+        <table class="tbl-ex">
+          <input type = "hidden" th:field="*{gNo}">
+          <input type = "hidden" th:field="*{oNo}">
+          <input type = "hidden" th:field="*{depth}">
+          <tr>
+            <th colspan="2">글쓰기</th>
+          </tr>
+          <tr>
+            <td class="label">제목</td>
+            <td><input type="text" th:field="*{title}"></td>
+          </tr>
+          <tr>
+            <td class="label">내용</td>
+            <td>
+              <textarea th:field="*{content}"></textarea>
+            </td>
+          </tr>
+        </table>
+        <div class="bottom">
+          <a href="/board" th:href="@{/board}">취소</a>
+          <input type="submit" value="등록">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</section>
+</body>
+</html>

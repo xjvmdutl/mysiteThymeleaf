@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<nav th:fragment="navigation">
+  <div id="navigation">
+    <ul>
+      <li><a href="/" th:href="@{/}" th:text="#{navigation.user}">김준호</a></li>
+      <li><a href="/guestbook?a=list" th:href="@{/guestbook}" th:text="#{navigation.guestbookForm}">방명록</a></li>
+      <li><a href="/board" th:href="@{/board}" th:text="#{navigation.boardForm}">게시판</a></li>
+    </ul>
+  </div>
+</nav>
+</html>
+

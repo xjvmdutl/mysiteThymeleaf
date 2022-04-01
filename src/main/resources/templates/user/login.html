@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/includes/layout :: layout(~{::section},~{::link},~{::script})}" >
+<head>
+  <link th:href="@{/assets/css/user.css}" href="/assets/css/user.css" rel="stylesheet" type="text/css">
+  <script th:inline="javascript"></script>
+</head>
+<body>
+<section>
+  <div id="content">
+    <div id="user">
+      <form id="login-form" name="loginform" th:object="${user}" th:action="@{/user/auth}" method="post" action="$/user/auth">
+        <label class="block-label" for="email" th:text="#{label.user.email}">이메일</label>
+        <input id="email" th:field="*{email}" type="email">
+        <label class="block-label" th:text="#{label.user.password}">패스워드</label>
+        <input type="password" th:field="*{password}">
+        <p th:if="${result == 'fail'}">
+          로그인이 실패 했습니다.
+        </p>
+        <input type="submit" th:value="#{button.login}" >
+      </form>
+    </div>
+  </div>
+</section>
+</body>
+</html>

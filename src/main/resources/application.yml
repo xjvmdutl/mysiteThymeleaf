@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/mysite
+    username: sa
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true # sql 로그에서 확인
+        show_sql: true
+logging.level:
+  org.hibernate.SQL: debug
+server:
+  error:
+    whitelabel:
+      enabled: false
+    include-exception: true
+    include-stacktrace: always
+    include-binding-errors: always
+
+file:
+  dir: C://Users/KimJunHo/Desktop/test/
