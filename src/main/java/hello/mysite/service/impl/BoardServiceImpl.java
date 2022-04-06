@@ -8,6 +8,7 @@ import hello.mysite.entity.Board;
 import hello.mysite.entity.User;
 import hello.mysite.repository.BoardRepository;
 import hello.mysite.service.BoardService;
+import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,9 +22,11 @@ public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
 
+    private final EntityManager em;
+
     @Override
     public Page<BoardDto> findAll(Pageable page, String kwd) {
-        return boardRepository.findByContents(page, kwd).map(BoardDto::new);
+        return boardRepository.findByContents(page, kwd);
     }
 
     @Override
@@ -76,6 +79,8 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void updateRequest(Long oNo, Long gNo, Long depth) {
         boardRepository.bulkUpdate(oNo, gNo);
+        em.flush();
+        em.clear();
     }
 
     @Override
