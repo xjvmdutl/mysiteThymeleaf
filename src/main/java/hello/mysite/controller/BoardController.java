@@ -88,7 +88,7 @@ public class BoardController {
     public String request(@PathVariable("no") Long no, Model model, @AuthUser User user) {
         if(user == null )
             return "redirect:/board";
-        RequestDto requestDto = boardService.findByRequest(no);
+        InsertBoardDto requestDto = boardService.findByRequest(no);
         model.addAttribute("board", requestDto);
         return "board/write";
     }

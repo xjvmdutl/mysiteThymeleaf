@@ -10,7 +10,7 @@
 <div id="container">
   <div id="content">
     <div id="board">
-      <form class="board-form" th:action th:object="${board}" method="post" action="/board/write">
+      <form class="board-form" th:action="@{/board/write}" th:object="${board}" method="post" action="/board/write">
         <table class="tbl-ex">
           <input type = "hidden" th:field="*{gNo}">
           <input type = "hidden" th:field="*{oNo}">

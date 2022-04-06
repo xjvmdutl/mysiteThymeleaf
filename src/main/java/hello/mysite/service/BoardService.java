@@ -20,7 +20,7 @@ public interface BoardService {
 
     void modify(Long no, DetailBoardDto boardDto);
 
-    RequestDto findByRequest(Long no);
+    InsertBoardDto findByRequest(Long no);
 
     void updateRequest(Long oNo, Long gNo, Long depth);
 

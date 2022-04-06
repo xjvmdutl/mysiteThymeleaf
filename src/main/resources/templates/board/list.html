@@ -23,10 +23,10 @@
         </tr>
         <tr th:each="board, boardStat  : ${list.content}">
           <td th:text="${boardStat.count }">1</td>
-          <th:block th:if="${board.depth > 0}">
-            <td th:style="padding-left:${40*board.depth}px">
+          <th:block th:if="${board.depth > 0}" >
+            <td th:style="'padding-left:${board.depth * 40}px'">
               <img src="/assets/images/reply.png" th:src="@{/assets/images/reply.jpg}"
-                   th:style="padding-left:${40*board.depth}px" />
+                   th:style="'padding-left:${board.depth * 40}px'" />
               <a th:if="${board.status ne 'delete'}" th:href="@{/board/view/{no}(no=${board.no})}" th:text="${board.title}">타이틀</a>
               <p th:if="${board.status == 'modify'}" th:text="[수정]"> </p>
               <p th:if="${board.status == 'insert'}" th:text="[생성]"> </p>
@@ -44,7 +44,7 @@
           <td th:text="${board.user.name }">사용자 이름</td>
           <td th:text="${board.hit }">방문 횟수</td>
           <td th:text="${board.createdAt}">생성일</td>
-          <td th:if="${session.authUser.no == board.user.no }"><a th:href="@{/board/delete/{no}(no=${board.no})}" href="$/board/delete/" class="del">삭제</a></td>
+          <td th:if="${session.authUser} and  ${ session.authUser.no == board.user.no }"><a th:href="@{/board/delete/{no}(no=${board.no})}" href="$/board/delete/" class="del">삭제</a></td>
         </tr>
       </table>
       <!-- pager 추가 -->

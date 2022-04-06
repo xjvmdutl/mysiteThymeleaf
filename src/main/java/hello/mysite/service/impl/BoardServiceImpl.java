@@ -70,10 +70,10 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public RequestDto findByRequest(Long no) {
+    public InsertBoardDto findByRequest(Long no) {
         Board board = getBoard(no);
 
-        return new RequestDto(board);
+        return new InsertBoardDto(board);
     }
 
     @Override
